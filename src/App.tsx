@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <div className="textarea-container">
-        <textarea placeholder="Write something..."></textarea>
+        <textarea placeholder="Just write or paste..."></textarea>
       </div>
     </div>
   );
