@@ -1,0 +1,42 @@
+:root{
+  --color-primary: #f2f2f2;
+  --color-secondary: #1a1a1a;
+}
+html {
+  background-color: var(--color-secondary);
+}
+.textarea-container {
+  color: var(--color-primary);
+  padding: 5rem 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+textarea {
+  width: 100%;
+  height: 100vh;
+  font-family: Lexend;
+  font-size: 20px;
+  line-height: 1.5;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+/* scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
