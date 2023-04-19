@@ -7,7 +7,7 @@ html {
 }
 .textarea-container {
   color: var(--color-primary);
-  padding: 5rem 1rem;
+  padding: 12rem 1rem;
   max-width: 700px;
   margin: 0 auto;
 }

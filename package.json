@@ -2,7 +2,7 @@
   "name": "comfyread",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://javchz.github.io/ComfyRead",
+  "homepage": "https://javchz.github.io/ComfyRead/",
   "type": "module",
   "scripts": {
     "dev": "vite",
