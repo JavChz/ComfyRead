@@ -24,6 +24,11 @@ textarea {
   resize: none;
 }
 
+textarea::selection{
+  background-color: var(--color-primary);;
+  color: var(--color-secondary);;
+}
+
 textarea:focus {
   outline: none;
 }
