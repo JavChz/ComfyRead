@@ -4,6 +4,6 @@ Just a Text Form area comfy for the eyes. Ideal to copy and paste contents from 
 
 Demo:
 
-* [https://javchz.github.io/my-home/](https://javchz.github.io/my-home/)
+* [https://javchz.github.io/ComfyRead/](https://javchz.github.io/ComfyRead/)
 
 Made in react with vite
