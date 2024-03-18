@@ -1,17 +1,42 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import "./App.css";
+import './App.css';
+
+import Textbox from './components/Textbox';
+
+interface Settings {
+	theme: 'comfy' | 'compact';
+	openModal: boolean;
+}
+
+const defaultSettings: Settings = {
+	theme: 'comfy',
+	openModal: false,
+};
 
 function App() {
-  
+	const [modalOpen, setModalOpen] = useState(false);
+	const [hide, setHide] = useState(false);
+	const [settings, setSettings] = useState<Settings>(defaultSettings);
 
-  return (
-    <div className="App">
-      <div className="textarea-container">
-        <textarea spellCheck="false" placeholder="Just write or paste..."></textarea>
-      </div>
-    </div>
-  );
+	function openModal(): void {
+		setModalOpen(!modalOpen);
+		setSettings({ ...settings, theme: modalOpen ? 'comfy' : 'compact' });
+	}
+	function hideButton(): void {
+		setHide(true);
+	}
+	function showButton(): void {
+		setHide(false);
+	}
+	return (
+		<div className="App" onMouseEnter={showButton} onMouseLeave={hideButton}>
+			<button onClick={openModal} className={hide ? 'hide button' : 'show button'}>
+				Change mode
+			</button>
+			<Textbox theme={settings.theme} />
+		</div>
+	);
 }
 
 export default App;
