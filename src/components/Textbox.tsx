@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Textbox = ({ theme }) => {
+const Textbox = ({ theme }: { theme: string }) => {
 	return (
 		<div className={`textarea-container ${theme}`}>
 			<textarea spellCheck="false" placeholder="Just write..." />;

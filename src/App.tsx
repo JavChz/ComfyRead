@@ -9,12 +9,11 @@ interface Settings {
 	openModal: boolean;
 }
 
-const defaultSettings: Settings = {
-	theme: 'comfy',
-	openModal: false,
-};
-
 function App() {
+	const defaultSettings: Settings = {
+		theme: 'comfy',
+		openModal: false,
+	};
 	const [modalOpen, setModalOpen] = useState(false);
 	const [hide, setHide] = useState(false);
 	const [settings, setSettings] = useState<Settings>(defaultSettings);
