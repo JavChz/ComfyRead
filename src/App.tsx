@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import './App.css';
 
@@ -17,20 +17,50 @@ function App() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [hide, setHide] = useState(false);
 	const [settings, setSettings] = useState<Settings>(defaultSettings);
+	const [mouseOverButton, setMouseOverButton] = useState(false);
 
 	function openModal(): void {
 		setModalOpen(!modalOpen);
 		setSettings({ ...settings, theme: modalOpen ? 'comfy' : 'compact' });
 	}
-	function hideButton(): void {
-		setHide(true);
+
+	function handleMouseOver() {
+		setMouseOverButton(true);
 	}
-	function showButton(): void {
-		setHide(false);
+
+	function handleMouseOut() {
+		setMouseOverButton(false);
 	}
+
+	useEffect(() => {
+		let timeoutId;
+
+		const handleMouseMove = () => {
+			setHide(false);
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(() => {
+				if (!mouseOverButton) {
+					setHide(true);
+				}
+			}, 1000);
+		};
+
+		document.addEventListener('mousemove', handleMouseMove);
+
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove);
+			clearTimeout(timeoutId);
+		};
+	}, [mouseOverButton]);
+
 	return (
-		<div className="App" onMouseEnter={showButton} onMouseLeave={hideButton}>
-			<button onClick={openModal} className={hide ? 'hide button' : 'show button'}>
+		<div className="App">
+			<button
+				onClick={openModal}
+				className={hide ? 'hide button' : 'show button'}
+				onMouseOver={handleMouseOver}
+				onMouseOut={handleMouseOut}
+			>
 				Change mode
 			</button>
 			<Textbox theme={settings.theme} />
