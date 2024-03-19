@@ -33,11 +33,13 @@ function App() {
 	}
 
 	useEffect(() => {
-		let timeoutId;
+		let timeoutId: any;
 
 		const handleMouseMove = () => {
 			setHide(false);
-			clearTimeout(timeoutId);
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
 			timeoutId = setTimeout(() => {
 				if (!mouseOverButton) {
 					setHide(true);
