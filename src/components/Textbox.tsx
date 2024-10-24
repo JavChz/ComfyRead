@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Textbox = ({ theme }: { theme: string }) => {
 	return (
 		<div className={`textarea-container ${theme}`}>

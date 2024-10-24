@@ -63,7 +63,7 @@ function App() {
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}
 			>
-				Change mode
+				Change mode: {settings.theme === 'comfy' ? 'Comfy' : 'Compact'}
 			</button>
 			<Textbox theme={settings.theme} />
 		</div>
