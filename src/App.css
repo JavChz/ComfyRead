@@ -1,15 +1,22 @@
 :root {
   --color-primary: #f2f2f2;
   --color-secondary: #1a1a1a;
-  --font-main: Lexend, "Open Sans", sans-serif;
+  --font-main: Lexend, "Open Sans", Avenir, Helvetica, Arial, sans-serif;
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-primary: #1a1a1a;
+    --color-secondary: #f2f2f2;
+  }
+}
+
 html {
   background-color: var(--color-secondary);
+  font-family: var(--font-main);
   font-size: 100%;
 }
-.textarea-container {
-  color: var(--color-primary);
-}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -22,7 +29,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-secondary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -35,6 +42,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 /* Themes */
 .comfy textarea {
   margin: 6rem auto 0;
@@ -45,6 +53,7 @@ button:focus-visible {
 }
 
 textarea {
+  color: var(--color-primary);
   display: block;
   background-color: transparent;
   border: none;
@@ -71,6 +80,7 @@ textarea:focus {
   top: 1rem;
   right: 1rem;
 }
+
 .show {
   opacity: 1;
 }
