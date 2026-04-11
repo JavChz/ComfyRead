@@ -29,7 +29,7 @@ function App() {
 	};
 
 	return (
-		<div className={`min-h-screen w-full transition-colors duration-300 font-sans flex flex-col ${themeMode === 'dark' ? 'dark bg-zinc-900 text-zinc-100' : 'bg-neutral-50 text-zinc-900'} ${layoutMode === 'comfy' ? 'items-center' : 'items-start justify-start'}`}>
+		<div className={`min-h-screen w-full transition-colors duration-300 font-sans flex flex-col ${themeMode === 'dark' ? 'dark bg-stone-900 text-stone-100' : 'bg-stone-50 text-stone-900'} ${layoutMode === 'comfy' ? 'items-center' : 'items-start justify-start'}`}>
 			<Controls 
 				layoutMode={layoutMode} 
 				onToggleLayout={handleToggleLayout}

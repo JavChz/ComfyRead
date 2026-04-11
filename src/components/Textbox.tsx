@@ -14,7 +14,7 @@ const Textbox = ({ layoutMode }: TextboxProps) => {
       <textarea 
         spellCheck="false" 
         placeholder="Start typing or pasting text here..." 
-        className="bg-transparent border-none text-current font-sans text-[1.25rem] leading-[1.6] w-full max-w-[65ch] min-h-[calc(100vh-8rem)] resize-none outline-none p-0 selection:bg-indigo-500 selection:text-white placeholder:text-zinc-500 dark:placeholder:text-zinc-500/50"
+        className="bg-transparent border-none text-current font-sans text-[1.25rem] leading-[1.6] w-full max-w-[65ch] min-h-[calc(100vh-8rem)] resize-none outline-none p-0 selection:bg-amber-600 selection:text-white placeholder:text-stone-500 dark:placeholder:text-stone-500/50"
       />
     </div>
   );

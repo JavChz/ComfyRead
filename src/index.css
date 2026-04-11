@@ -16,10 +16,10 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-zinc-400/50 dark:bg-zinc-600/50 rounded-md;
+    @apply bg-stone-400/50 dark:bg-stone-600/50 rounded-md;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-zinc-400 dark:bg-zinc-500;
+    @apply bg-stone-400 dark:bg-stone-500;
   }
 }

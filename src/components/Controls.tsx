@@ -19,7 +19,7 @@ const Controls = ({
 	onHoverStart,
 	onHoverEnd,
 }: ControlsProps) => {
-	const btnClasses = "bg-neutral-100/60 dark:bg-zinc-800/60 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-zinc-100 backdrop-blur-md rounded-full px-5 py-2 flex items-center justify-center gap-2 text-sm font-medium shadow-sm hover:-translate-y-[1px] hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer";
+	const btnClasses = "bg-stone-100/60 dark:bg-stone-800/60 border border-black/10 dark:border-white/10 text-stone-900 dark:text-stone-100 backdrop-blur-md rounded-full px-5 py-2 flex items-center justify-center gap-2 text-sm font-medium shadow-sm hover:-translate-y-[1px] hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500 dark:hover:border-amber-400 transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer";
 
 	return (
 		<div
