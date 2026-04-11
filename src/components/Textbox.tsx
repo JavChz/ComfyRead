@@ -5,7 +5,7 @@ interface TextboxProps {
 const Textbox = ({ layoutMode }: TextboxProps) => {
   return (
     <div 
-      className={`w-full transition-all duration-500 ease-out box-border flex ${
+      className={`w-full box-border flex ${
         layoutMode === 'comfy' 
           ? 'pt-32 px-6 pb-16 justify-center' 
           : 'p-6 justify-start'
