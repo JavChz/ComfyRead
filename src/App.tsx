@@ -1,71 +1,45 @@
 import { useState, useEffect } from 'react';
+import { useIdle } from './hooks/useIdle';
 
 import './App.css';
 
 import Textbox from './components/Textbox';
+import Controls from './components/Controls';
 
-interface Settings {
-	theme: 'comfy' | 'compact';
-	openModal: boolean;
-}
+export type LayoutMode = 'comfy' | 'compact';
+export type ThemeMode = 'light' | 'dark';
 
 function App() {
-	const defaultSettings: Settings = {
-		theme: 'comfy',
-		openModal: false,
+	const [layoutMode, setLayoutMode] = useState<LayoutMode>('comfy');
+	// Check standard user preference for initial state
+	const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+        if (typeof window !== 'undefined') {
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        return 'dark';
+    });
+	const { isIdle, setIsHoveringControl } = useIdle(1500);
+
+	const handleToggleLayout = () => {
+		setLayoutMode((prev) => (prev === 'comfy' ? 'compact' : 'comfy'));
 	};
-	const [modalOpen, setModalOpen] = useState(false);
-	const [hide, setHide] = useState(false);
-	const [settings, setSettings] = useState<Settings>(defaultSettings);
-	const [mouseOverButton, setMouseOverButton] = useState(false);
 
-	function openModal(): void {
-		setModalOpen(!modalOpen);
-		setSettings({ ...settings, theme: modalOpen ? 'comfy' : 'compact' });
-	}
-
-	function handleMouseOver() {
-		setMouseOverButton(true);
-	}
-
-	function handleMouseOut() {
-		setMouseOverButton(false);
-	}
-
-	useEffect(() => {
-		let timeoutId: any;
-
-		const handleMouseMove = () => {
-			setHide(false);
-			if (timeoutId) {
-				clearTimeout(timeoutId);
-			}
-			timeoutId = setTimeout(() => {
-				if (!mouseOverButton) {
-					setHide(true);
-				}
-			}, 1000);
-		};
-
-		document.addEventListener('mousemove', handleMouseMove);
-
-		return () => {
-			document.removeEventListener('mousemove', handleMouseMove);
-			clearTimeout(timeoutId);
-		};
-	}, [mouseOverButton]);
+	const handleToggleTheme = () => {
+		setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+	};
 
 	return (
-		<div className="App">
-			<button
-				onClick={openModal}
-				className={hide ? 'hide button' : 'show button'}
-				onMouseOver={handleMouseOver}
-				onMouseOut={handleMouseOut}
-			>
-				Change mode: {settings.theme === 'comfy' ? 'Comfy' : 'Compact'}
-			</button>
-			<Textbox theme={settings.theme} />
+		<div className={`min-h-screen w-full transition-colors duration-300 font-sans flex flex-col ${themeMode === 'dark' ? 'dark bg-zinc-900 text-zinc-100' : 'bg-neutral-50 text-zinc-900'} ${layoutMode === 'comfy' ? 'items-center' : 'items-start justify-start'}`}>
+			<Controls 
+				layoutMode={layoutMode} 
+				onToggleLayout={handleToggleLayout}
+				themeMode={themeMode}
+				onToggleTheme={handleToggleTheme}
+				isIdle={isIdle}
+				onHoverStart={() => setIsHoveringControl(true)}
+				onHoverEnd={() => setIsHoveringControl(false)}
+			/>
+			<Textbox layoutMode={layoutMode} />
 		</div>
 	);
 }

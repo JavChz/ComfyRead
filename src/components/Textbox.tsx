@@ -1,7 +1,21 @@
-const Textbox = ({ theme }: { theme: string }) => {
+interface TextboxProps {
+  layoutMode: 'comfy' | 'compact';
+}
+
+const Textbox = ({ layoutMode }: TextboxProps) => {
   return (
-    <div className={`textarea-container ${theme}`}>
-      <textarea spellCheck="false" placeholder="Just write..." />
+    <div 
+      className={`w-full transition-all duration-500 ease-out box-border flex ${
+        layoutMode === 'comfy' 
+          ? 'pt-32 px-6 pb-16 justify-center' 
+          : 'p-6 justify-start'
+      }`}
+    >
+      <textarea 
+        spellCheck="false" 
+        placeholder="Start typing or pasting text here..." 
+        className="bg-transparent border-none text-current font-sans text-[1.25rem] leading-[1.6] w-full max-w-[65ch] min-h-[calc(100vh-8rem)] resize-none outline-none p-0 selection:bg-indigo-500 selection:text-white placeholder:text-zinc-500 dark:placeholder:text-zinc-500/50"
+      />
     </div>
   );
 };
