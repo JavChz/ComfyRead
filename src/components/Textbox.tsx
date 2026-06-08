@@ -1,6 +1,37 @@
 import React, { useEffect, useRef } from 'react';
 import { useAppStore } from '../store/useAppStore';
 
+function formatEditorial(text: string): string {
+  if (!text) return text;
+  let normalized = text.replace(/\r\n/g, '\n');
+  const blocks = normalized.split(/\n{2,}/);
+  
+  const formattedBlocks = blocks.map(block => {
+    const lines = block.split('\n');
+    let newBlock = lines[0];
+    for (let i = 1; i < lines.length; i++) {
+      const prevLine = lines[i - 1].trim();
+      const currLine = lines[i].trim();
+      
+      if (!prevLine) {
+         newBlock += '\n' + currLine;
+         continue;
+      }
+      
+      const endsWithTerminator = /[.!?:"'”’]$/.test(prevLine);
+      
+      if (endsWithTerminator) {
+         newBlock += '\n\n' + currLine;
+      } else {
+         newBlock += ' ' + currLine;
+      }
+    }
+    return newBlock;
+  });
+  
+  return formattedBlocks.join('\n\n');
+}
+
 const Textbox: React.FC = () => {
   const {
     text,
@@ -11,9 +42,12 @@ const Textbox: React.FC = () => {
     readingWidth,
     fontFamily,
     spellCheck,
+    previousText,
+    setPreviousText,
   } = useAppStore();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const isFormattingRef = useRef(false);
 
   // Focus on mount and move cursor to end of text
   useEffect(() => {
@@ -30,6 +64,41 @@ const Textbox: React.FC = () => {
       textareaRef.current.focus();
     }
   };
+
+  useEffect(() => {
+    const handleFormatEvent = () => {
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+      const currentText = textarea.value;
+      const formatted = formatEditorial(currentText);
+      if (currentText !== formatted) {
+        setPreviousText(currentText);
+        isFormattingRef.current = true;
+        textarea.focus();
+        textarea.select();
+        document.execCommand('insertText', false, formatted);
+        isFormattingRef.current = false;
+        
+        const length = textarea.value.length;
+        textarea.setSelectionRange(length, length);
+      }
+    };
+
+    const handleUndoEvent = () => {
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+      textarea.focus();
+      document.execCommand('undo');
+      setPreviousText(null);
+    };
+
+    window.addEventListener('format-text', handleFormatEvent);
+    window.addEventListener('undo-format', handleUndoEvent);
+    return () => {
+      window.removeEventListener('format-text', handleFormatEvent);
+      window.removeEventListener('undo-format', handleUndoEvent);
+    };
+  }, [setPreviousText]);
 
   // Map font family to Tailwind typography classes
   const getFontClass = () => {
@@ -58,7 +127,12 @@ const Textbox: React.FC = () => {
         spellCheck={spellCheck}
         placeholder="Just write..."
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => {
+          if (!isFormattingRef.current && previousText !== null) {
+            setPreviousText(null);
+          }
+          setText(e.target.value);
+        }}
         style={{
           fontSize: `${fontSize}px`,
           lineHeight: lineHeight,

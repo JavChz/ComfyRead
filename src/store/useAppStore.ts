@@ -8,6 +8,7 @@ export type FontFamily = 'sans' | 'serif' | 'mono';
 export interface AppState {
   // Draft content
   text: string;
+  previousText: string | null;
 
   // Customization preferences
   themeMode: ThemeMode;
@@ -20,6 +21,7 @@ export interface AppState {
 
   // Actions
   setText: (text: string) => void;
+  setPreviousText: (text: string | null) => void;
   setThemeMode: (theme: ThemeMode) => void;
   toggleThemeMode: () => void;
   setLayoutMode: (layout: LayoutMode) => void;
@@ -53,9 +55,12 @@ export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       text: '',
+      previousText: null,
       ...DEFAULT_SETTINGS,
 
       setText: (text) => set({ text }),
+      setPreviousText: (previousText) => set({ previousText }),
+      
       setThemeMode: (themeMode) => set({ themeMode }),
       toggleThemeMode: () =>
         set((state) => ({ themeMode: state.themeMode === 'light' ? 'dark' : 'light' })),
